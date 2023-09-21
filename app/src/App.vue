@@ -65,20 +65,20 @@ const menuOptions: MenuOption[] = [
     key: 'RANK',
     icon: renderIcon(RankIcon),
   },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: 'member',
-          },
-        },
-        { default: () => 'MEMBER' }
-      ),
-    key: 'MEMBER',
-    icon: renderIcon(MemberIcon),
-  },
+  // {
+  //   label: () =>
+  //     h(
+  //       RouterLink,
+  //       {
+  //         to: {
+  //           name: 'member',
+  //         },
+  //       },
+  //       { default: () => 'MEMBER' }
+  //     ),
+  //   key: 'MEMBER',
+  //   icon: renderIcon(MemberIcon),
+  // },
   {
     label: () =>
       h(
