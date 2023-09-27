@@ -2,29 +2,31 @@
   <Transition @leave="onLeave">
     <Splash v-if="enterPage" />
   </Transition>
-  <RouterView v-slot="{ Component }">
-    <div v-if="error">
-      <ErrorPage />
-    </div>
-    <Suspense v-else>
-      <template #default>
-        <component :is="Component" :key="$route.path"></component>
-      </template>
-      <template #fallback>
-        <LoadingPage />
-      </template>
-    </Suspense>
-  </RouterView>
-  <n-menu class="main_menu" mode="horizontal" :options="menuOptions" default-value="RANK" />
+  <n-config-provider :theme="isDarkMode ? darkTheme : lightTheme" :theme-overrides="themeOverridesRef">
+    <RouterView v-slot="{ Component }">
+      <div v-if="error">
+        <ErrorPage />
+      </div>
+      <Suspense v-else>
+        <template #default>
+          <component :is="Component" :key="$route.path"></component>
+        </template>
+        <template #fallback>
+          <LoadingPage />
+        </template>
+      </Suspense>
+    </RouterView>
+    <n-menu class="main_menu" mode="horizontal" :options="menuOptions" default-value="RANK" />
+    <n-button @click="theme = darkTheme">{{ isDarkMode }} Dark </n-button>
+  </n-config-provider>
 </template>
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 
-import { useCookies } from '@vueuse/integrations/useCookies'
 import gsap from 'gsap'
-import { NIcon } from 'naive-ui'
-import type { MenuOption } from 'naive-ui'
+import { NIcon, darkTheme, lightTheme } from 'naive-ui'
+import type { GlobalTheme, MenuOption, GlobalThemeOverrides } from 'naive-ui'
 import {
   FormatListNumberedRound as RankIcon,
   EmojiPeopleRound as MemberIcon,
@@ -34,9 +36,29 @@ import {
 import ErrorPage from './views/Error.vue'
 import LoadingPage from './views/Loading.vue'
 
+const { cookie } = useGlobalState()
+
 const enterPage = ref(false)
-const cookies = useCookies(['splash'])
 const error = ref(false)
+const theme = ref<GlobalTheme | null>(null)
+const isDarkMode = computed(() => {
+  return cookie.get('ui-darkmode')
+})
+
+watch(
+  () => isDarkMode.value,
+  (value) => {
+    console.log('vv', value)
+  }
+)
+
+const themeOverridesRef = computed((): GlobalThemeOverrides => {
+  const themeColorText = unref(isDarkMode) ? '#fff' : '#000'
+
+  return {
+    Menu: {},
+  }
+})
 
 function onLeave(el: Element, done: () => void) {
   gsap.to(el, {
@@ -90,14 +112,14 @@ onErrorCaptured((e) => {
 })
 
 onMounted(() => {
-  if (cookies.get('splash') !== 'enter') {
+  if (cookie.get('splash') !== 'enter') {
     enterPage.value = true
     setTimeout(() => {
       enterPage.value = false
     }, 4000)
   }
 
-  cookies.set('splash', 'enter', {
+  cookie.set('splash', 'enter', {
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 하루
   })
 })
@@ -115,8 +137,9 @@ onMounted(() => {
   font-weight: bold;
 }
 .wrapper {
+  position: relative;
   margin: 0 auto;
-  padding: 25px;
+  padding: 40px 25px;
   max-width: 600px;
 }
 .title {

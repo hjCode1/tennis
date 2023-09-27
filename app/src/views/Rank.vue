@@ -1,5 +1,6 @@
 <template>
   <section class="rank wrapper">
+    <Header />
     <h1 class="title">🏆</h1>
     <MemberList :members="members" />
   </section>

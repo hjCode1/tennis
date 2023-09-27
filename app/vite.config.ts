@@ -19,6 +19,7 @@ export default defineConfig({
         },
         '@vueuse/core',
       ],
+      dirs: ['./src/composables', './src/composables/**'],
     }),
     Components({
       dts: true,
