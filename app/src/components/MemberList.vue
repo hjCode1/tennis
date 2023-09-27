@@ -1,32 +1,42 @@
 <template>
-  <n-data-table :columns="cols" :data="data" />
+  <n-data-table :columns="cols" :data="members" striped />
 </template>
 
 <script setup lang="ts">
-import { h, reactive } from 'vue'
-import type { DataTableColumns } from 'naive-ui'
+// import type { DataTableColumns } from 'naive-ui'
 
-const data = [
-  {
-    Left: '1',
-    Right: '1',
-  },
-  {
-    Left: '2',
-    Right: '2',
-  },
-]
-const cols: DataTableColumns = reactive([
+type Member = {
+  rank: number
+  name: string
+  point: number
+}
+
+type Props = {
+  members: Member[]
+}
+
+const props = defineProps<Props>()
+
+const cols = [
   {
     title: 'RANKING',
-    key: 'RANKING',
+    key: 'rank',
     sorter: 'default',
-    renderSorterIcon: ({ order }) => {
+    renderSorterIcon: ({ order }: { order: boolean | string }) => {
       const style = 'transform: translateY(-3px);'
+
       if (order === false) return h('div', { style }, ['🤔'])
       if (order === 'ascend') return h('div', { style }, ['👇'])
       if (order === 'descend') return h('div', { style }, ['👆'])
     },
   },
-])
+  {
+    title: 'NAME',
+    key: 'name',
+  },
+  {
+    title: 'POINT',
+    key: 'point',
+  },
+]
 </script>

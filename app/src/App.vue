@@ -3,22 +3,23 @@
     <Splash v-if="enterPage" />
   </Transition>
   <RouterView v-slot="{ Component }">
-    <Suspense>
+    <div v-if="error">
+      <ErrorPage />
+    </div>
+    <Suspense v-else>
       <template #default>
         <component :is="Component" :key="$route.path"></component>
       </template>
       <template #fallback>
-        <Error />
+        <LoadingPage />
       </template>
     </Suspense>
   </RouterView>
-  <n-menu class="main_menu" v-model:value="activeKey" mode="horizontal" :options="menuOptions" />
+  <n-menu class="main_menu" mode="horizontal" :options="menuOptions" default-value="RANK" />
 </template>
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { onMounted, ref, h } from 'vue'
-import type { Component } from 'vue'
 
 import { useCookies } from '@vueuse/integrations/useCookies'
 import gsap from 'gsap'
@@ -30,11 +31,12 @@ import {
   SportsBaseballFilled as MatchIcon,
 } from '@vicons/material'
 
-import Error from './views/Error.vue'
+import ErrorPage from './views/Error.vue'
+import LoadingPage from './views/Loading.vue'
 
 const enterPage = ref(false)
-const activeKey = ref(null)
 const cookies = useCookies(['splash'])
+const error = ref(false)
 
 function onLeave(el: Element, done: () => void) {
   gsap.to(el, {
@@ -65,20 +67,6 @@ const menuOptions: MenuOption[] = [
     key: 'RANK',
     icon: renderIcon(RankIcon),
   },
-  // {
-  //   label: () =>
-  //     h(
-  //       RouterLink,
-  //       {
-  //         to: {
-  //           name: 'member',
-  //         },
-  //       },
-  //       { default: () => 'MEMBER' }
-  //     ),
-  //   key: 'MEMBER',
-  //   icon: renderIcon(MemberIcon),
-  // },
   {
     label: () =>
       h(
@@ -94,6 +82,12 @@ const menuOptions: MenuOption[] = [
     icon: renderIcon(MatchIcon),
   },
 ]
+
+onErrorCaptured((e) => {
+  console.error(e)
+  error.value = true
+  return false
+})
 
 onMounted(() => {
   if (cookies.get('splash') !== 'enter') {
@@ -118,6 +112,16 @@ onMounted(() => {
   width: 100%;
   justify-content: center;
   box-shadow: 0 5px 15px rgb(8 140 4 / 60%);
+  font-weight: bold;
+}
+.wrapper {
+  margin: 0 auto;
+  padding: 25px;
+  max-width: 600px;
+}
+.title {
+  padding: 0 0 20px;
+  font-size: 60px;
   font-weight: bold;
 }
 </style>

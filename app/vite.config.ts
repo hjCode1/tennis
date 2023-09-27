@@ -11,24 +11,25 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
+      dts: true,
       imports: [
         'vue',
         {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-          ]
-        }
-      ]
+          'naive-ui': ['useDialog', 'useMessage'],
+        },
+        '@vueuse/core',
+      ],
     }),
     Components({
       dts: true,
-      resolvers: [NaiveUiResolver()]
-    })
+      resolvers: [NaiveUiResolver()],
+    }),
   ],
+  build: {},
+  optimizeDeps: {},
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })

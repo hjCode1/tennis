@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import Rank from '../views/Rank.vue'
+import Match from '../views/Match.vue'
 import Error from '../views/Error.vue'
 
 const router = createRouter({
@@ -11,15 +11,10 @@ const router = createRouter({
       name: 'rank',
       component: Rank,
     },
-    // {
-    //   path: '/member',
-    //   name: 'member',
-    //   component: HomeView,
-    // },
     {
       path: '/match',
       name: 'match',
-      component: HomeView,
+      component: Match,
     },
     {
       path: '/:pathMatch(.*)*',
