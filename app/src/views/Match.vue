@@ -1,5 +1,6 @@
 <template>
   <section class="match wrapper">
+    <Header />
     <h1 class="title">🤜🤛</h1>
     <DatePicker style="margin-top: 40px" />
     <MatchTable :match-data="matchData" />

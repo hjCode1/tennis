@@ -3,3 +3,32 @@
 * {
   letter-spacing: -0.7px;
 }
+
+.darkmode {
+  background: var(--lt-color-gray-900);
+
+  .main_menu {
+    background: var(--lt-color-gray-900);
+  }
+}
+.main_menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgb(8 140 4 / 60%);
+  font-weight: bold;
+}
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding: 40px 25px;
+  max-width: 600px;
+}
+.title {
+  padding: 20px 0;
+  font-size: 60px;
+  font-weight: bold;
+}

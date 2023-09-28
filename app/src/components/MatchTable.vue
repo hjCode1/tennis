@@ -3,7 +3,9 @@
     <tbody>
       <tr v-for="(match, index) in matchData" :key="index">
         <th class="country" v-html="match.country"></th>
-        <th class="names">{{ match.names }}</th>
+        <th class="names">
+          <n-p>{{ match.names }}</n-p>
+        </th>
         <th class="score">{{ match.score }}</th>
       </tr>
     </tbody>

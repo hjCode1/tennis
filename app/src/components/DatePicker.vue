@@ -1,7 +1,8 @@
 <template>
-  <n-date-picker v-model:formatted-value="formattedValue" value-format="yyyy-MM-dd" type="datetime" clearable />
+  <n-date-picker v-model:formatted-value="formattedValue" value-format="yyyy-MM-dd" type="date" clearable />
+  {{ formattedValue }}
 </template>
 
 <script setup lang="ts">
-const formattedValue = ref('2023-09-28')
+const formattedValue = ref(useTodayDate())
 </script>

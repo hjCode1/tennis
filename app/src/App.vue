@@ -17,7 +17,6 @@
       </Suspense>
     </RouterView>
     <n-menu class="main_menu" mode="horizontal" :options="menuOptions" default-value="RANK" />
-    <n-button @click="theme = darkTheme">{{ isDarkMode }} Dark </n-button>
   </n-config-provider>
 </template>
 
@@ -41,15 +40,18 @@ const { cookie } = useGlobalState()
 const enterPage = ref(false)
 const error = ref(false)
 const theme = ref<GlobalTheme | null>(null)
-const isDarkMode = computed(() => {
-  return cookie.get('ui-darkmode')
-})
+const isDarkMode = computed(() => cookie.get('ui-darkmode'))
 
 watch(
   () => isDarkMode.value,
   (value) => {
-    console.log('vv', value)
-  }
+    if (value) {
+      document.querySelector('body')?.setAttribute('class', 'darkmode')
+    } else {
+      document.querySelector('body')?.removeAttribute('class')
+    }
+  },
+  { immediate: true }
 )
 
 const themeOverridesRef = computed((): GlobalThemeOverrides => {
@@ -126,25 +128,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.main_menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  justify-content: center;
-  box-shadow: 0 5px 15px rgb(8 140 4 / 60%);
-  font-weight: bold;
-}
-.wrapper {
-  position: relative;
-  margin: 0 auto;
-  padding: 40px 25px;
-  max-width: 600px;
-}
-.title {
-  padding: 0 0 20px;
-  font-size: 60px;
-  font-weight: bold;
-}
+//
 </style>
