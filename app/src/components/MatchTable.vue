@@ -1,5 +1,5 @@
 <template>
-  <table class="match-table">
+  <table class="match-table" v-if="matchData.length > 0">
     <tbody>
       <tr v-for="(match, index) in matchData" :key="index">
         <th class="country" v-html="match.country"></th>
@@ -10,6 +10,7 @@
       </tr>
     </tbody>
   </table>
+  <n-result v-else status="500" title="NO RESULT!" size="huge" style="padding-top: 60px"> </n-result>
 </template>
 
 <script setup lang="ts">
