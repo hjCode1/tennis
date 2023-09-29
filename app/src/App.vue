@@ -9,7 +9,9 @@
       </div>
       <Suspense v-else>
         <template #default>
-          <component :is="Component" :key="$route.path"></component>
+          <KeepAlive>
+            <component :is="Component" :key="$route.path"></component>
+          </KeepAlive>
         </template>
         <template #fallback>
           <LoadingPage />
