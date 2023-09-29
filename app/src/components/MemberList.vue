@@ -3,12 +3,9 @@
 </template>
 
 <script setup lang="ts">
-// import type { DataTableColumns } from 'naive-ui'
-
 type Member = {
   rank: number
   name: string
-  point: number
 }
 
 type Props = {
@@ -21,6 +18,7 @@ const cols = [
   {
     title: 'RANKING',
     key: 'rank',
+    width: '40%',
     sorter: 'default',
     renderSorterIcon: ({ order }: { order: boolean | string }) => {
       const style = 'transform: translateY(-3px);'
@@ -33,10 +31,6 @@ const cols = [
   {
     title: 'NAME',
     key: 'name',
-  },
-  {
-    title: 'POINT',
-    key: 'point',
   },
 ]
 </script>

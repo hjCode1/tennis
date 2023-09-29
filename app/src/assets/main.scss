@@ -5,10 +5,10 @@
 }
 
 .darkmode {
-  background: var(--lt-color-gray-900);
+  background: var(--lt-color-gray-800);
 
   .main_menu {
-    background: var(--lt-color-gray-900);
+    background: var(--lt-color-gray-800);
   }
 }
 .main_menu {
@@ -18,6 +18,7 @@
   right: 0;
   width: 100%;
   justify-content: center;
+  background: #fff;
   box-shadow: 0 5px 15px rgb(8 140 4 / 60%);
   font-weight: bold;
 }
