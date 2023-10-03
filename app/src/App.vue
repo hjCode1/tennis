@@ -18,7 +18,7 @@
         </template>
       </Suspense>
     </RouterView>
-    <n-menu class="main_menu" mode="horizontal" :options="menuOptions" default-value="RANK" />
+    <n-menu class="main_menu" mode="horizontal" :options="menuOptions" />
   </n-config-provider>
 </template>
 
