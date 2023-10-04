@@ -119,7 +119,7 @@ onMounted(() => {
   if (cookie.get('splash') !== 'enter') {
     enterPage.value = true
     setTimeout(() => {
-      // enterPage.value = false
+      enterPage.value = false
     }, 4000)
   }
 
