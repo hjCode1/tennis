@@ -55,13 +55,13 @@ onMounted(() => {
     position: absolute;
     top: 50%;
     left: 50%;
-    max-width: 150px;
+    max-width: 130px;
     text-align: center;
     transform: translate(-50%, -50%) rotate(-10deg);
   }
   &__title {
     display: inline-block;
-    font-size: 40px;
+    font-size: 32px;
     color: green;
     font-weight: bold;
     transform: skew(-10deg);
