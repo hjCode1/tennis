@@ -28,29 +28,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
-function compareScores(scores: { names: string; score: string; result?: string }[]) {
-  const team1Score = parseInt(scores[0].score)
-  const team2Score = parseInt(scores[1].score)
-
-  if (team1Score > team2Score) {
-    scores[0].result = 'WIN'
-    scores[1].result = 'LOSE'
-  } else if (team1Score < team2Score) {
-    scores[0].result = 'LOSE'
-    scores[1].result = 'WIN'
-  }
-}
-
 function getTagType(type: string) {
-  if (type === 'WIN') {
-    return 'success'
-  } else {
-    return 'error'
-  }
-}
-
-if (props.matchData) {
-  Object.values(props.matchData).forEach(compareScores)
+  return type === 'WIN' ? 'success' : 'error'
 }
 </script>
 
@@ -66,7 +45,7 @@ if (props.matchData) {
     font-size: 18px;
     font-weight: bold;
     vertical-align: middle;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     svg {
       display: block;
       width: 100% !important;

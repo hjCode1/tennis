@@ -27,51 +27,61 @@
       "1": [
         {
           "names": "GUEST1, GUEST2",
-          "score": "3"
+          "score": "3",
+          "result": "LOSE"
         },
         {
           "names": "KHJ, LMS",
-          "score": "4"
+          "score": "4",
+          "result": "WIN"
         }
       ],
       "2": [
         {
           "names": "JKS, JES",
-          "score": "0"
+          "score": "0",
+          "result": "LOSE"
         },
         {
           "names": "KHJ, LMS",
-          "score": "4"
+          "score": "4",
+          "result": "WIN"
         }
       ],
       "3": [
         {
           "names": "KHJ, JES",
-          "score": "4"
+          "score": "4",
+          "result": "WIN"
         },
         {
           "names": "LMS, GUEST2",
-          "score": "1"
+          "score": "1",
+          "result": "LOSE"
         }
       ],
       "4": [
         {
           "names": "KHJ, GUEST1",
-          "score": "3"
+          "score": "3",
+          "result": "LOSE"
         },
         {
           "names": "LMS, JKS",
-          "score": "4"
+          "score": "4",
+          "result": "WIN"
         }
       ],
       "5": [
         {
           "names": "JKS, JES",
-          "score": "3"
+          "score": "3",
+          "result": "LOSE"
         },
         {
           "names": "GUEST1, GUEST2",
-          "score": "4"
+          "score": "4",
+          "result": "WIN"
         }
       ]
     }
