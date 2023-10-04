@@ -3,7 +3,8 @@
     <tbody>
       <tr v-for="(match, key) in matchs" :key="key">
         <th class="names">
-          <n-p>{{ match.names }}</n-p>
+          <n-p style="margin: 0">{{ match.names }}</n-p>
+          <n-tag v-if="match.result" :type="getTagType(match.result)">{{ match.result }}</n-tag>
         </th>
         <th class="score">{{ match.score }}</th>
       </tr>
@@ -17,6 +18,7 @@ type matchDataType = {
   [key: string]: {
     names: string
     score: string
+    result?: string
   }[]
 }
 
@@ -25,6 +27,31 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+function compareScores(scores: { names: string; score: string; result?: string }[]) {
+  const team1Score = parseInt(scores[0].score)
+  const team2Score = parseInt(scores[1].score)
+
+  if (team1Score > team2Score) {
+    scores[0].result = 'WIN'
+    scores[1].result = 'LOSE'
+  } else if (team1Score < team2Score) {
+    scores[0].result = 'LOSE'
+    scores[1].result = 'WIN'
+  }
+}
+
+function getTagType(type: string) {
+  if (type === 'WIN') {
+    return 'success'
+  } else {
+    return 'error'
+  }
+}
+
+if (props.matchData) {
+  Object.values(props.matchData).forEach(compareScores)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +74,8 @@ const props = defineProps<Props>()
   }
   .names {
     text-align: left;
+    display: flex;
+    justify-content: space-between;
   }
   .score {
     width: 30%;

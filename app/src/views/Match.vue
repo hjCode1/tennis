@@ -3,7 +3,9 @@
     <Header />
     <h1 class="title">🤜🤛</h1>
     <DatePicker v-model:value="todayDate" style="margin-top: 40px" />
-    <n-text style="margin-top: 30px; font-size: 20px" strong code>{{ todayDate }}의 경기 결과</n-text>
+    <n-text v-show="todayDate" style="margin-top: 30px; font-size: 20px" strong code>
+      {{ todayDate }}의 경기 결과
+    </n-text>
     <div style="margin-bottom: 40px">
       <MatchTable :match-data="matchDate" />
     </div>
