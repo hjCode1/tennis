@@ -49,19 +49,15 @@
 
 <script setup lang="ts">
 import type { FormInst, FormRules, FormItemRule } from 'naive-ui'
-import { ref as FBRef, set } from 'firebase/database'
-
-type matchPayloadType = {
-  names: string
-  score: string
-  result: string
-}
+import type { matchPayloadType, rankPayloadType } from '../types/global'
 
 type Props = {
   visible: boolean
 }
 type Emits = {
   (event: 'update:visible', value: boolean): void
+  (event: 'update:match', value: matchPayloadType[]): void
+  (event: 'update:rank', value: rankPayloadType[]): void
 }
 
 const props = defineProps<Props>()
@@ -119,7 +115,6 @@ const modalVisible = computed({
 function handleClickAddMatch() {
   formRef.value?.validate((errors) => {
     if (!errors) {
-      console.log(modelValue)
       handleSubmit()
     } else {
       console.log(errors)
@@ -168,12 +163,8 @@ function handleSubmit() {
 
   const rankPayload = setPlayerPoint(team1Result === 'WIN' ? team1Players : team2Players)
 
-  console.log('pp', matchPayload)
-  console.log('rankPayload', rankPayload)
-
-  // set(FBRef(db, 'match/'), {
-
-  // })
+  emits('update:match', matchPayload)
+  emits('update:rank', rankPayload)
 }
 
 whenever(modalVisible, () => sync())

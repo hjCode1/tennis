@@ -3,22 +3,24 @@
     <Splash v-if="enterPage" />
   </Transition>
   <n-config-provider :theme="isDarkMode ? darkTheme : lightTheme" :theme-overrides="themeOverridesRef">
-    <RouterView v-slot="{ Component }">
-      <div v-if="error">
-        <ErrorPage />
-      </div>
-      <Suspense v-else>
-        <template #default>
-          <KeepAlive>
-            <component :is="Component" :key="$route.path"></component>
-          </KeepAlive>
-        </template>
-        <template #fallback>
-          <LoadingPage />
-        </template>
-      </Suspense>
-    </RouterView>
-    <n-menu class="main_menu" mode="horizontal" :options="menuOptions" />
+    <n-message-provider>
+      <RouterView v-slot="{ Component }">
+        <div v-if="error">
+          <ErrorPage />
+        </div>
+        <Suspense v-else>
+          <template #default>
+            <KeepAlive>
+              <component :is="Component" :key="$route.path"></component>
+            </KeepAlive>
+          </template>
+          <template #fallback>
+            <LoadingPage />
+          </template>
+        </Suspense>
+      </RouterView>
+      <n-menu class="main_menu" mode="horizontal" :options="menuOptions" />
+    </n-message-provider>
   </n-config-provider>
 </template>
 
