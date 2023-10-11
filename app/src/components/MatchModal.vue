@@ -127,7 +127,7 @@ function setPlayerPoint(players: string[]) {
   const filteredPlayers = players
     .filter((player) => !player.includes('guest'))
     .map((player) => ({
-      name: player,
+      name: player.trim(),
       point: 10,
     }))
 
