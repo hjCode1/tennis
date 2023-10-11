@@ -113,6 +113,7 @@ const modalVisible = computed({
 })
 
 function handleClickAddMatch() {
+  loading.value = true
   formRef.value?.validate((errors) => {
     if (!errors) {
       handleSubmit()

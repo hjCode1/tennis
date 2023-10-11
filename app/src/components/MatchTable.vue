@@ -1,16 +1,20 @@
 <template>
-  <table class="match-table" v-if="matchData" v-for="(matchs, key) in matchData" :key="key">
-    <tbody>
-      <tr v-for="(match, key) in matchs" :key="key">
-        <th class="names">
-          <n-p style="margin: 0">{{ match.names }}</n-p>
-          <n-tag v-if="match.result" :type="getTagType(match.result)">{{ match.result }}</n-tag>
-        </th>
-        <th class="score">{{ match.score }}</th>
-      </tr>
-    </tbody>
-  </table>
-  <n-result v-else status="500" title="NO RESULT!" size="huge" style="padding-top: 60px"> </n-result>
+  <n-spin :show="!matchData">
+    <table class="match-table" v-if="matchData" v-for="(matchs, key) in matchData" :key="key">
+      <tbody>
+        <tr v-for="(match, key) in matchs" :key="key">
+          <th class="names">
+            <n-p style="margin: 0">{{ match.names }}</n-p>
+            <n-tag v-if="match.result" :type="getTagType(match.result)">{{ match.result }}</n-tag>
+          </th>
+          <th class="score">{{ match.score }}</th>
+        </tr>
+      </tbody>
+    </table>
+    <n-result v-else status="500" title="NO RESULT!" size="huge" style="padding-top: 60px"> </n-result>
+
+    <template #description> Loading...🎾 </template>
+  </n-spin>
 </template>
 
 <script setup lang="ts">

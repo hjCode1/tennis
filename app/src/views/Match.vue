@@ -9,18 +9,16 @@
       </n-text>
       <n-button strong secondary type="primary" class="add-match-button" @click="visible = true">결과 추가</n-button>
     </div>
-    <n-spin :show="spinShow">
-      <div style="margin-bottom: 40px">
-        <MatchTable :match-data="matchingObject" />
-      </div>
-    </n-spin>
+    <div style="margin-bottom: 40px">
+      <MatchTable :match-data="matchingObject" />
+    </div>
   </section>
-  <!-- @update:rank="updateRank" -->
-  <MatchModal v-model:visible="visible" @update:match="updateMatch" />
+
+  <MatchModal v-model:visible="visible" @update:rank="updateRank" @update:match="updateMatch" />
 </template>
 
 <script setup lang="ts">
-import { ref as FbRef, child, get, update } from 'firebase/database'
+import { ref as FbRef, child, get, update, onValue } from 'firebase/database'
 import type { matchPayloadType, rankPayloadType } from '../types/global'
 
 type MatchData = {
@@ -36,14 +34,20 @@ const dbRef = FbRef(db)
 const spinShow = ref(false)
 const matchData = ref<MatchData | null>(null)
 const matchingObject = ref<Record<string, any> | null>(null)
+const promiseRank = ref(false)
+const promiseMatch = ref(false)
 
 const fetchMatch = async () => {
   try {
     spinShow.value = true
+
     const snapshot = await get(child(dbRef, '/match'))
 
     if (snapshot.exists()) {
       matchData.value = snapshot.val()
+      if (matchData.value) {
+        matchingObject.value = matchData.value[unref(todayDate)]
+      }
     }
     spinShow.value = false
   } catch (error) {
@@ -74,19 +78,42 @@ async function updateRank(value: rankPayloadType[]) {
       })
 
       await Promise.all(updatePromises)
-      message.success('저장되었습니다')
     }
-
-    spinShow.value = false
   } catch (error) {
     console.error(error)
     message.error('저장에 실패했습니다')
-    spinShow.value = false
+  } finally {
+    promiseRank.value = true
   }
 }
 
-function updateMatch(value: matchPayloadType) {
-  console.log('value match', value)
+async function updateMatch(value: matchPayloadType[]) {
+  try {
+    spinShow.value = true
+    const date = unref(todayDate)
+
+    if (!matchData.value) {
+      await update(child(dbRef, `/match/${date}`), {})
+    }
+
+    const uid = Math.random().toString(16).slice(2)
+    const payloads = value.map((item) => {
+      return {
+        ...item,
+        score: item.score.toString(),
+      }
+    })
+
+    const updatePromises = payloads.map(async (payload, idx) => {
+      return update(child(dbRef, `/match/${unref(todayDate)}/${uid}/team${idx}`), payload)
+    })
+
+    await Promise.all(updatePromises)
+  } catch (error) {
+    console.error(error)
+  } finally {
+    promiseMatch.value = true
+  }
 }
 
 onMounted(() => fetchMatch())
@@ -101,6 +128,17 @@ watch(
     }
   },
   { immediate: true }
+)
+watch(
+  () => [promiseRank.value, promiseMatch.value],
+  (value) => {
+    if (value.every((v) => v === true)) {
+      message.success('매칭 결과가 저장됐습니다')
+      spinShow.value = false
+      visible.value = false
+      fetchMatch()
+    }
+  }
 )
 </script>
 

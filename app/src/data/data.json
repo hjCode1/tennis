@@ -1,89 +1,88 @@
 {
-  "members": [
-    {
+  "members": {
+    "KCW": {
       "name": "KCW",
-      "rank": "1"
+      "point": "0"
     },
-    {
+    "KHJ": {
       "name": "KHJ",
-      "rank": "2"
+      "point": "30"
     },
-    {
+    "LMS": {
       "name": "LMS",
-      "rank": "3"
+      "point": "30"
     },
-    {
+    "JKS": {
       "name": "JKS",
-      "rank": "4"
+      "point": "10"
     },
-    {
+    "JES": {
       "name": "JES",
-      "rank": "5"
+      "point": "10"
     }
-  ],
-  "match": [
-    {
-      "date": "2023-09-03",
-      "1": [
-        {
+  },
+  "match": {
+    "2023-09-03": {
+      "0": {
+        "team1": {
           "names": "GUEST1, GUEST2",
           "score": "3",
           "result": "LOSE"
         },
-        {
+        "team2": {
           "names": "KHJ, LMS",
           "score": "4",
           "result": "WIN"
         }
-      ],
-      "2": [
-        {
+      },
+      "1": {
+        "team1": {
           "names": "JKS, JES",
           "score": "0",
           "result": "LOSE"
         },
-        {
+        "team2": {
           "names": "KHJ, LMS",
           "score": "4",
           "result": "WIN"
         }
-      ],
-      "3": [
-        {
+      },
+      "2": {
+        "team1": {
           "names": "KHJ, JES",
           "score": "4",
           "result": "WIN"
         },
-        {
+        "team2": {
           "names": "LMS, GUEST2",
           "score": "1",
           "result": "LOSE"
         }
-      ],
-      "4": [
-        {
+      },
+      "3": {
+        "team1": {
           "names": "KHJ, GUEST1",
           "score": "3",
           "result": "LOSE"
         },
-        {
+        "team2": {
           "names": "LMS, JKS",
           "score": "4",
           "result": "WIN"
         }
-      ],
-      "5": [
-        {
+      },
+      "4": {
+        "team1": {
           "names": "JKS, JES",
           "score": "3",
           "result": "LOSE"
         },
-        {
+        "team2": {
           "names": "GUEST1, GUEST2",
           "score": "4",
           "result": "WIN"
         }
-      ]
+      }
     }
-  ]
+  }
 }
