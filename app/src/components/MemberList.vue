@@ -4,15 +4,16 @@
 
 <script setup lang="ts">
 type Member = {
-  rank: number
+  point: string
   name: string
+  rank: number
 }
 
 type Props = {
-  members: Member[]
+  members: Member
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const cols = [
   {
@@ -31,6 +32,10 @@ const cols = [
   {
     title: 'NAME',
     key: 'name',
+  },
+  {
+    title: 'POINTS',
+    key: 'point',
   },
 ]
 </script>

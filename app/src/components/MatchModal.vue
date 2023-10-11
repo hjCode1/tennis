@@ -5,7 +5,7 @@
         <n-input
           type="text"
           size="large"
-          placeholder="팀원을 입력하세요 (ex. 정기승, 게스트1)"
+          placeholder="팀원을 입력하세요 (ex. JKS, GUEST1)"
           v-model:value="modelValue.team1"
           @keydown.enter.prevent
         ></n-input>
@@ -14,7 +14,7 @@
         <n-input-number
           size="large"
           style="width: 100%"
-          placeholder="점수를 입력하세요"
+          :placeholder="WARING_MESSAGE_SCORE"
           v-model:value="modelValue.score1"
           @keydown.enter.prevent
         ></n-input-number>
@@ -23,7 +23,7 @@
         <n-input
           type="text"
           size="large"
-          placeholder="팀원을 입력하세요 (ex. 조은수, 게스트2)"
+          placeholder="팀원을 입력하세요 (ex. JES, GUEST2)"
           v-model:value="modelValue.team2"
           @keydown.enter.prevent
         ></n-input>
@@ -32,7 +32,7 @@
         <n-input-number
           size="large"
           style="width: 100%"
-          placeholder="점수를 입력하세요"
+          :placeholder="WARING_MESSAGE_SCORE"
           v-model:value="modelValue.score2"
           @keydown.enter.prevent
         ></n-input-number>
@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import type { FormInst, FormRules, FormItemRule } from 'naive-ui'
+import { ref as FBRef, set } from 'firebase/database'
 
 type matchPayloadType = {
   names: string
@@ -67,7 +68,8 @@ const props = defineProps<Props>()
 const emits = defineEmits<Emits>()
 const formRef = ref<FormInst | null>(null)
 const loading = ref(false)
-
+const WARNING_MESSAGE_TEAM = '팀원을 입력하세요 (ex. JKS, JES)'
+const WARING_MESSAGE_SCORE = '점수를 입력하세요'
 const model = ref({
   team1: '',
   score1: '',
@@ -80,7 +82,7 @@ const rules: FormRules = {
   team1: [
     {
       required: true,
-      message: '팀원을 입력하세요 (ex. JKS, JES)',
+      message: WARNING_MESSAGE_TEAM,
       trigger: ['input', 'blur'],
     },
   ],
@@ -88,14 +90,14 @@ const rules: FormRules = {
     {
       required: true,
       type: 'number',
-      message: '점수를 입력하세요',
+      message: WARING_MESSAGE_SCORE,
       trigger: ['input', 'blur', 'change'],
     },
   ],
   team2: [
     {
       required: true,
-      message: '팀원을 입력하세요 (ex. JKS, JES)',
+      message: WARNING_MESSAGE_TEAM,
       trigger: ['input', 'blur'],
     },
   ],
@@ -103,7 +105,7 @@ const rules: FormRules = {
     {
       required: true,
       type: 'number',
-      message: '점수를 입력하세요',
+      message: WARING_MESSAGE_SCORE,
       trigger: ['input', 'blur', 'change'],
     },
   ],
@@ -168,6 +170,10 @@ function handleSubmit() {
 
   console.log('pp', matchPayload)
   console.log('rankPayload', rankPayload)
+
+  // set(FBRef(db, 'match/'), {
+
+  // })
 }
 
 whenever(modalVisible, () => sync())

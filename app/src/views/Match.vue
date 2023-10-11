@@ -9,30 +9,56 @@
       </n-text>
       <n-button strong secondary type="primary" class="add-match-button" @click="visible = true">결과 추가</n-button>
     </div>
-    <div style="margin-bottom: 40px">
-      <MatchTable :match-data="matchDate" />
-    </div>
+    <n-spin :show="spinShow">
+      <div style="margin-bottom: 40px">
+        <MatchTable :match-data="matchingObject" />
+      </div>
+    </n-spin>
   </section>
 
   <MatchModal v-model:visible="visible" />
 </template>
 
 <script setup lang="ts">
-import { match } from '@/data/data.json'
+import { ref as FbRef, child, get } from 'firebase/database'
+
+type MatchData = {
+  [date: string]: {
+    [key: string]: any
+  }
+}
 
 const todayDate = ref(useTodayDate())
-const matchDate = ref()
-const matchingObject = computed(() => match.find((item) => item.date === unref(todayDate)))
 const visible = ref(false)
+const dbRef = FbRef(db)
+const spinShow = ref(false)
+const matchData = ref<MatchData | null>(null)
+const matchingObject = ref<Record<string, any> | null>(null)
 
+const fetchMatch = async () => {
+  try {
+    spinShow.value = true
+    const snapshot = await get(child(dbRef, '/match'))
+
+    if (snapshot.exists()) {
+      matchData.value = snapshot.val()
+    }
+    spinShow.value = false
+  } catch (error) {
+    console.error(error)
+    spinShow.value = false
+  }
+}
+
+onMounted(() => fetchMatch())
 watch(
   () => todayDate.value,
   () => {
-    if (matchingObject.value) {
-      const { date, ...rest } = matchingObject.value
-      matchDate.value = rest
+    const date = unref(todayDate)
+    if (matchData.value && matchData.value[date]) {
+      matchingObject.value = matchData.value[date]
     } else {
-      matchDate.value = null
+      matchingObject.value = null
     }
   },
   { immediate: true }
