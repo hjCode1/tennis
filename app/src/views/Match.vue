@@ -10,7 +10,7 @@
       <n-button strong secondary type="primary" class="add-match-button" @click="visible = true">결과 추가</n-button>
     </div>
     <div style="margin-bottom: 40px">
-      <MatchTable :match-data="matchingObject" />
+      <MatchTable :match-data="matchingObject" :loading="spinShow" />
     </div>
   </section>
 
@@ -45,6 +45,7 @@ const fetchMatch = async () => {
 
     if (snapshot.exists()) {
       matchData.value = snapshot.val()
+      console.log('mm', matchData.value)
       if (matchData.value) {
         matchingObject.value = matchData.value[unref(todayDate)]
       }

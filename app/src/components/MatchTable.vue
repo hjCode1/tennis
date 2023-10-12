@@ -1,5 +1,5 @@
 <template>
-  <n-spin :show="!matchData">
+  <n-spin :show="loading">
     <table class="match-table" v-if="matchData" v-for="(matchs, key) in matchData" :key="key">
       <tbody>
         <tr v-for="(match, key) in matchs" :key="key">
@@ -28,6 +28,7 @@ type matchDataType = {
 
 type Props = {
   matchData: matchDataType
+  loading: boolean
 }
 
 const props = defineProps<Props>()
