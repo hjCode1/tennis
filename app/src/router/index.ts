@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Rank from '../views/Rank.vue'
 import Match from '../views/Match.vue'
 import Error from '../views/Error.vue'
+import Login from '../views/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +16,11 @@ const router = createRouter({
       path: '/match',
       name: 'match',
       component: Match,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Login,
     },
     {
       path: '/:pathMatch(.*)*',

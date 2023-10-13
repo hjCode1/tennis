@@ -1,7 +1,7 @@
 <template>
   <Modal v-model:visible="modalVisible" :title="`결과 추가`">
     <n-form ref="formRef" :model="modelValue" :rules="rules" label-placement="top">
-      <n-form-item path="team1" label="team1 member" :span="12">
+      <n-form-item path="team1" label="team1 member">
         <n-input
           type="text"
           size="large"
@@ -10,7 +10,7 @@
           @keydown.enter.prevent
         ></n-input>
       </n-form-item>
-      <n-form-item path="score1" label="team1 score" :span="12">
+      <n-form-item path="score1" label="team1 score">
         <n-input-number
           size="large"
           style="width: 100%"
@@ -19,7 +19,7 @@
           @keydown.enter.prevent
         ></n-input-number>
       </n-form-item>
-      <n-form-item path="team2" label="team2 member" :span="12">
+      <n-form-item path="team2" label="team2 member">
         <n-input
           type="text"
           size="large"
@@ -28,7 +28,7 @@
           @keydown.enter.prevent
         ></n-input>
       </n-form-item>
-      <n-form-item path="score2" label="team2 score" :span="12">
+      <n-form-item path="score2" label="team2 score">
         <n-input-number
           size="large"
           style="width: 100%"
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInst, FormRules, FormItemRule } from 'naive-ui'
+import type { FormInst, FormRules } from 'naive-ui'
 import type { matchPayloadType, rankPayloadType } from '../types/global'
 
 type Props = {

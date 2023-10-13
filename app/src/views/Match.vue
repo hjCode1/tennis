@@ -7,7 +7,9 @@
       <n-text v-show="todayDate" style="margin-top: 30px; font-size: 20px" strong code>
         {{ todayDate }}의 경기 결과
       </n-text>
-      <n-button strong secondary type="primary" class="add-match-button" @click="visible = true">결과 추가</n-button>
+      <n-button v-if="isLogin" strong secondary type="primary" class="add-match-button" @click="visible = true"
+        >결과 추가</n-button
+      >
     </div>
     <div style="margin-bottom: 40px">
       <MatchTable :match-data="matchingObject" :loading="spinShow" />
@@ -27,6 +29,8 @@ type MatchData = {
   }
 }
 
+const { isLogin } = useGlobalState()
+
 const message = useMessage()
 const todayDate = ref(useTodayDate())
 const visible = ref(false)
@@ -45,7 +49,6 @@ const fetchMatch = async () => {
 
     if (snapshot.exists()) {
       matchData.value = snapshot.val()
-      console.log('mm', matchData.value)
       if (matchData.value) {
         matchingObject.value = matchData.value[unref(todayDate)]
       }
