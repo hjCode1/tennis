@@ -72,8 +72,8 @@ function checkAccount() {
 <style lang="scss" scope>
 .form_wrapper {
   position: fixed;
-  width: 100;
   width: calc(100% - 50px);
+  max-width: 600px;
   top: 47%;
   transform: translateY(-50%);
 }
