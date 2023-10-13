@@ -28,10 +28,13 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from 'vue-router'
 import type { FormInst, FormRules } from 'naive-ui'
 
 const message = useMessage()
 const { cookie } = useGlobalState()
+const router = useRouter()
+
 const MESSAGE_ID = '아이디를 입력하세요'
 const MESSAGE_PW = '비밀번호를 입력하세요'
 const formRef = ref<FormInst | null>(null)
@@ -64,6 +67,7 @@ function checkAccount() {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     })
     message.success('로그인 성공')
+    router.push({ name: 'rank' })
   } else {
     message.error('계정정보가 일치하지 않습니다')
   }

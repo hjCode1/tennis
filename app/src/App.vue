@@ -68,81 +68,83 @@ function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 
-const menuOptions: MenuOption[] = !isLogin.value
-  ? [
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'rank',
+const menuOptions = computed((): MenuOption[] =>
+  !isLogin.value
+    ? [
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: 'rank',
+                },
               },
-            },
-            { default: () => 'RANK' }
-          ),
-        key: 'RANK',
-        icon: renderIcon(RankIcon),
-      },
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'match',
+              { default: () => 'RANK' }
+            ),
+          key: 'RANK',
+          icon: renderIcon(RankIcon),
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: 'match',
+                },
               },
-            },
-            { default: () => 'MATCH' }
-          ),
-        key: 'MATCH',
-        icon: renderIcon(MatchIcon),
-      },
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'admin',
+              { default: () => 'MATCH' }
+            ),
+          key: 'MATCH',
+          icon: renderIcon(MatchIcon),
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: 'admin',
+                },
               },
-            },
-            { default: () => 'ADMIN' }
-          ),
-        key: 'ADMIN',
-        icon: renderIcon(AdminIcon),
-      },
-    ]
-  : [
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'rank',
+              { default: () => 'ADMIN' }
+            ),
+          key: 'ADMIN',
+          icon: renderIcon(AdminIcon),
+        },
+      ]
+    : [
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: 'rank',
+                },
               },
-            },
-            { default: () => 'RANK' }
-          ),
-        key: 'RANK',
-        icon: renderIcon(RankIcon),
-      },
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'match',
+              { default: () => 'RANK' }
+            ),
+          key: 'RANK',
+          icon: renderIcon(RankIcon),
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: 'match',
+                },
               },
-            },
-            { default: () => 'MATCH' }
-          ),
-        key: 'MATCH',
-        icon: renderIcon(MatchIcon),
-      },
-    ]
+              { default: () => 'MATCH' }
+            ),
+          key: 'MATCH',
+          icon: renderIcon(MatchIcon),
+        },
+      ]
+)
 
 watch(
   () => isDarkMode.value,
@@ -154,15 +156,6 @@ watch(
     }
   },
   { immediate: true }
-)
-
-watch(
-  () => isLogin.value,
-  (value) => {
-    if (value) {
-    } else {
-    }
-  }
 )
 
 onErrorCaptured((e) => {
